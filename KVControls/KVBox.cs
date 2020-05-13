@@ -11,6 +11,7 @@ namespace KVControls
     {
         bool KVReadOnly { get; set; }
         string KVMemAddr { get; set; }
+        ITag KVTag { get; set; }
     }
 
 
@@ -53,9 +54,9 @@ namespace KVControls
         public void Update(Storage newValue)
         {
             if (_controller == null || _value.Equals(newValue)) return;
-            if (ValueChange != null)
+            if (ValueChangeEvent != null)
             {
-                ValueChange(this, new ValueChangeEventArgs(newValue));
+                ValueChangeEvent(this, new ValueChangeEventArgs(newValue));
             }
         }
 
@@ -73,7 +74,7 @@ namespace KVControls
                 return 1;
             }
         }
-        public ValueChangeHandler ValueChange;
+        public ValueChangeHandler ValueChangeEvent;
         private string _address;
     }
 
